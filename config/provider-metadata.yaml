@@ -1,36 +1,144 @@
-name: hashicorp/null
+name: littlejo/cilium
 resources:
-    null_resource:
+    cilium:
         subCategory: ""
-        description: The null_resource resource implements the standard resource lifecycle but takes no further action. The triggers argument allows specifying an arbitrary set of values that, when changed, will cause the resource to be replaced.
-        name: null_resource
-        title: null_resource Resource - terraform-provider-null
+        description: 'Install resource for Cilium. This is equivalent to cilium cli: cilium install, cilium upgrade and cilium uninstall: It manages cilium helm chart'
+        name: cilium
+        title: cilium Resource - terraform-provider-cilium
         examples:
-            - name: cluster
+            - name: example
               manifest: |-
                 {
-                  "connection": [
-                    {
-                      "host": "${element(aws_instance.cluster.*.public_ip, 0)}"
-                    }
+                  "set": [
+                    "ipam.mode=kubernetes",
+                    "ipam.operator.replicas=1",
+                    "tunnel=vxlan"
                   ],
-                  "provisioner": {
-                    "remote-exec": [
-                      {
-                        "inline": [
-                          "bootstrap-cluster.sh ${join(\" \", aws_instance.cluster.*.private_ip)}"
-                        ]
-                      }
-                    ]
-                  },
-                  "triggers": {
-                    "cluster_instance_ids": "${join(\",\", aws_instance.cluster.*.id)}"
-                  }
+                  "version": "1.14.5"
                 }
               dependencies:
-                aws_instance.cluster: |-
+                kind_cluster.example: |-
                     {
-                      "count": 3
+                      "kind_config": [
+                        {
+                          "api_version": "kind.x-k8s.io/v1alpha4",
+                          "kind": "Cluster",
+                          "networking": [
+                            {
+                              "disable_default_cni": true
+                            }
+                          ],
+                          "node": [
+                            {
+                              "role": "control-plane"
+                            },
+                            {
+                              "role": "worker"
+                            }
+                          ]
+                        }
+                      ],
+                      "name": "test-cluster"
                     }
-        argumentDocs: {}
+        argumentDocs:
+            data_path: '(String) Datapath mode to use { tunnel | native | aws-eni | gke | azure | aks-byocni } (Default: autodetected).'
+            helm_values: (String) Helm values (helm get values -n kube-system cilium)
+            id: (String) Cilium install identifier
+            repository: '(String) Helm chart repository to download Cilium charts from (Default: https://helm.cilium.io).'
+            reset: '(Boolean) When upgrading, reset the helm values to the ones built into the chart (Default: false).'
+            reuse: '(Boolean) When upgrading, reuse the helm values from the latest release unless any overrides from are set from other flags. This option takes precedence over HelmResetValues (Default: true).'
+            set: '(List of String) Set helm values on the command line (can specify multiple or separate values with commas: key1=val1,key2=val2 (Default: []).'
+            values: '(String) values in raw yaml to pass to helm. (Default: empty).'
+            version: '(String) Version of Cilium (Default: v1.14.5).'
+            wait: '(Boolean) Wait for Cilium status is ok (Default: true).'
+        importStatements: []
+    cilium_clustermesh:
+        subCategory: ""
+        description: 'Cluster Mesh resource. This is equivalent to cilium cli: cilium clustermesh enable and cilium clustermesh disable: It manages the activation of Cluster Mesh on one Kubernetes cluster.'
+        name: cilium_clustermesh
+        title: cilium_clustermesh Resource - terraform-provider-cilium
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "depends_on": [
+                    "${cilium.example}"
+                  ],
+                  "service_type": "LoadBalancer"
+                }
+              dependencies:
+                cilium.example: |-
+                    {
+                      "set": [
+                        "cluster.name=clustermesh1",
+                        "cluster.id=1",
+                        "ipam.mode=kubernetes"
+                      ],
+                      "version": "1.14.5"
+                    }
+        argumentDocs:
+            enable_external_workloads: '(Boolean) Enable support for external workloads, such as VMs (Default: false).'
+            enable_kv_store_mesh: '(Boolean) Enable kvstoremesh, an extension which caches remote cluster information in the local kvstore (Cilium >=1.14 only) (Default: false).'
+            id: (String) Cilium ClusterMesh identifier
+            service_type: '(String) Type of Kubernetes service to expose control plane { LoadBalancer | NodePort | ClusterIP } (Default: autodetected).'
+            wait: '(Boolean) Wait Cluster Mesh status is ok (Default: true).'
+        importStatements: []
+    cilium_clustermesh_connection:
+        subCategory: ""
+        description: 'Cluster Mesh connection resource. This is equivalent to cilium cli: cilium clustermesh connect and cilium clustermesh disconnect: It manages the connections between two Kubernetes clusters.'
+        name: cilium_clustermesh_connection
+        title: cilium_clustermesh_connection Resource - terraform-provider-cilium
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "destination_context": "context-2"
+                }
+        argumentDocs:
+            destination_context: (String) Kubernetes configuration context of destination cluster
+            id: (String) Cilium ClusterMesh Connection identifier
+        importStatements: []
+    cilium_config:
+        subCategory: ""
+        description: 'Config resource for Cilium. This is equivalent to cilium cli: cilium config: It manages the cilium Kubernetes ConfigMap resource'
+        name: cilium_config
+        title: cilium_config Resource - terraform-provider-cilium
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "key": "debug",
+                  "value": "true"
+                }
+        argumentDocs:
+            id: (String) Cilium config identifier
+            key: (String) Key of the config
+            restart: '(Boolean) Restart Cilium pods (Default: true).'
+            value: (String) Value of the key
+        importStatements: []
+    cilium_hubble:
+        subCategory: ""
+        description: 'Hubble resource for Cilium. This is equivalent to cilium cli: cilium hubble: It manages cilium hubble'
+        name: cilium_hubble
+        title: cilium_hubble Resource - terraform-provider-cilium
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "ui": true
+                }
+        argumentDocs:
+            id: (String) Cilium hubble identifier
+            relay: '(Boolean) Deploy Hubble Relay (Default: true).'
+            ui: '(Boolean) Enable Hubble UI (Default: false).'
+        importStatements: []
+    cilium_kubeproxy_free Resource - terraform-provider-cilium:
+        subCategory: ""
+        description: 'Disable Kube-Proxy DaemonSet, equivalent to: kubectl -n kube-system patch daemonset kube-proxy -p ''"spec": {"template": {"spec": {"nodeSelector": {"non-existing": "true"}}}}''.'
+        name: cilium_kubeproxy_free Resource - terraform-provider-cilium
+        title: cilium_kubeproxy_free Resource - terraform-provider-cilium
+        argumentDocs:
+            id: (String) kube-proxy free identifier.
+            name: '(String) Name of DaemonSet (Default: kube-proxy).'
+            namespace: '(String) Namespace in which to install (Default: kube-system).'
         importStatements: []

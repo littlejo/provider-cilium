@@ -1,4 +1,4 @@
-module github.com/upbound/upjet-provider-template
+module github.com/littlejo/provider-cilium
 
 go 1.19
 
