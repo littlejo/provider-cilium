@@ -1,0 +1,9 @@
+apiVersion: hubble.cilium.io/v1alpha1
+kind: Hubble
+metadata:
+  name: hello-crossplane
+spec:
+  forProvider:
+    ui: true
+  providerConfigRef:
+    name: default

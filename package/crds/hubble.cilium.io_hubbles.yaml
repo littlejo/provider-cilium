@@ -4,18 +4,18 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.13.0
-  name: resources.null.template.upbound.io
+  name: hubbles.hubble.cilium.io
 spec:
-  group: null.template.upbound.io
+  group: hubble.cilium.io
   names:
     categories:
     - crossplane
     - managed
-    - template
-    kind: Resource
-    listKind: ResourceList
-    plural: resources
-    singular: resource
+    - cilium
+    kind: Hubble
+    listKind: HubbleList
+    plural: hubbles
+    singular: hubble
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -34,10 +34,9 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Resource is the Schema for the Resources API. The null_resource
-          resource implements the standard resource lifecycle but takes no further
-          action. The triggers argument allows specifying an arbitrary set of values
-          that, when changed, will cause the resource to be replaced.
+        description: 'Hubble is the Schema for the Hubbles API. Hubble resource for
+          Cilium. This is equivalent to cilium cli: cilium hubble: It manages cilium
+          hubble'
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -52,7 +51,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: ResourceSpec defines the desired state of Resource
+            description: HubbleSpec defines the desired state of Hubble
             properties:
               deletionPolicy:
                 default: Delete
@@ -69,13 +68,14 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  triggers:
-                    additionalProperties:
-                      type: string
-                    description: A map of arbitrary strings that, when changed, will
-                      force the null resource to be replaced, re-running any associated
-                      provisioners.
-                    type: object
+                  relay:
+                    description: '(Boolean) Deploy Hubble Relay (Default: true). Deploy
+                      Hubble Relay (Default: `true`).'
+                    type: boolean
+                  ui:
+                    description: '(Boolean) Enable Hubble UI (Default: false). Enable
+                      Hubble UI (Default: `false`).'
+                    type: boolean
                 type: object
               initProvider:
                 description: THIS IS A BETA FIELD. It will be honored unless the Management
@@ -89,13 +89,14 @@ spec:
                   for example because of an external controller is managing them,
                   like an autoscaler.
                 properties:
-                  triggers:
-                    additionalProperties:
-                      type: string
-                    description: A map of arbitrary strings that, when changed, will
-                      force the null resource to be replaced, re-running any associated
-                      provisioners.
-                    type: object
+                  relay:
+                    description: '(Boolean) Deploy Hubble Relay (Default: true). Deploy
+                      Hubble Relay (Default: `true`).'
+                    type: boolean
+                  ui:
+                    description: '(Boolean) Enable Hubble UI (Default: false). Enable
+                      Hubble UI (Default: `false`).'
+                    type: boolean
                 type: object
               managementPolicies:
                 default:
@@ -258,19 +259,21 @@ spec:
             - forProvider
             type: object
           status:
-            description: ResourceStatus defines the observed state of Resource.
+            description: HubbleStatus defines the observed state of Hubble.
             properties:
               atProvider:
                 properties:
                   id:
+                    description: (String) Cilium hubble identifier
                     type: string
-                  triggers:
-                    additionalProperties:
-                      type: string
-                    description: A map of arbitrary strings that, when changed, will
-                      force the null resource to be replaced, re-running any associated
-                      provisioners.
-                    type: object
+                  relay:
+                    description: '(Boolean) Deploy Hubble Relay (Default: true). Deploy
+                      Hubble Relay (Default: `true`).'
+                    type: boolean
+                  ui:
+                    description: '(Boolean) Enable Hubble UI (Default: false). Enable
+                      Hubble UI (Default: `false`).'
+                    type: boolean
                 type: object
               conditions:
                 description: Conditions of the resource.

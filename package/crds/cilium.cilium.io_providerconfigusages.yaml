@@ -4,14 +4,14 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.13.0
-  name: providerconfigusages.template.upbound.io
+  name: providerconfigusages.cilium.cilium.io
 spec:
-  group: template.upbound.io
+  group: cilium.cilium.io
   names:
     categories:
     - crossplane
     - provider
-    - template
+    - cilium
     kind: ProviderConfigUsage
     listKind: ProviderConfigUsageList
     plural: providerconfigusages
