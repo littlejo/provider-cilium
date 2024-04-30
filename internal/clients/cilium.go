@@ -27,7 +27,7 @@ const (
 	errUnmarshalCredentials = "cannot unmarshal cilium credentials as JSON"
 
 	configPath  = "config_path"
-	context     = "context"
+	contextKube = "context"
 	namespace   = "namespace"
 	helmRelease = "helm_release"
 )
@@ -72,8 +72,8 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 		if v, ok := creds[configPath]; ok {
 			ps.Configuration[configPath] = v
 		}
-		if v, ok := creds[context]; ok {
-			ps.Configuration[context] = v
+		if v, ok := creds[contextKube]; ok {
+			ps.Configuration[contextKube] = v
 		}
 		if v, ok := creds[namespace]; ok {
 			ps.Configuration[namespace] = v
