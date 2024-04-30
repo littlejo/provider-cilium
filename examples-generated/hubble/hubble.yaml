@@ -1,0 +1,11 @@
+apiVersion: hubble.cilium.io/v1alpha1
+kind: Hubble
+metadata:
+  annotations:
+    meta.upbound.io/example-id: hubble/v1alpha1/hubble
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    ui: true

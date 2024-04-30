@@ -25,7 +25,7 @@ const (
 	errTrackUsage           = "cannot track ProviderConfig usage"
 	errExtractCredentials   = "cannot extract credentials"
 	errUnmarshalCredentials = "cannot unmarshal cilium credentials as JSON"
- 
+
 	configPath  = "config_path"
 	context     = "context"
 	namespace   = "namespace"

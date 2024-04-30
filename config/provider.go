@@ -11,6 +11,7 @@ import (
 	ujconfig "github.com/crossplane/upjet/pkg/config"
 
 	"github.com/littlejo/provider-cilium/config/cilium"
+	"github.com/littlejo/provider-cilium/config/hubble"
 )
 
 const (
@@ -36,6 +37,7 @@ func GetProvider() *ujconfig.Provider {
 
 	for _, configure := range []func(provider *ujconfig.Provider){
 		// add custom config functions
+		hubble.Configure,
 		cilium.Configure,
 	} {
 		configure(pc)
