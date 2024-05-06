@@ -1,0 +1,11 @@
+apiVersion: cmesh.cilium.io/v1alpha1
+kind: Enabler
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cmesh/v1alpha1/enabler
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    serviceType: LoadBalancer

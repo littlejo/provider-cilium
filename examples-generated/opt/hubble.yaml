@@ -1,8 +1,8 @@
-apiVersion: hubble.cilium.io/v1alpha1
+apiVersion: opt.cilium.io/v1alpha1
 kind: Hubble
 metadata:
   annotations:
-    meta.upbound.io/example-id: hubble/v1alpha1/hubble
+    meta.upbound.io/example-id: opt/v1alpha1/hubble
   labels:
     testing.upbound.io/example-name: example
   name: example

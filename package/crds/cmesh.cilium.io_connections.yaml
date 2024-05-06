@@ -4,18 +4,18 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.13.0
-  name: hubbles.hubble.cilium.io
+  name: connections.cmesh.cilium.io
 spec:
-  group: hubble.cilium.io
+  group: cmesh.cilium.io
   names:
     categories:
     - crossplane
     - managed
     - cilium
-    kind: Hubble
-    listKind: HubbleList
-    plural: hubbles
-    singular: hubble
+    kind: Connection
+    listKind: ConnectionList
+    plural: connections
+    singular: connection
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -34,9 +34,10 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: 'Hubble is the Schema for the Hubbles API. Hubble resource for
-          Cilium. This is equivalent to cilium cli: cilium hubble: It manages cilium
-          hubble'
+        description: 'Connection is the Schema for the Connections API. Cluster Mesh
+          connection resource. This is equivalent to cilium cli: cilium clustermesh
+          connect and cilium clustermesh disconnect: It manages the connections between
+          two Kubernetes clusters.'
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -51,7 +52,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: HubbleSpec defines the desired state of Hubble
+            description: ConnectionSpec defines the desired state of Connection
             properties:
               deletionPolicy:
                 default: Delete
@@ -68,14 +69,10 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  relay:
-                    description: '(Boolean) Deploy Hubble Relay (Default: true). Deploy
-                      Hubble Relay (Default: `true`).'
-                    type: boolean
-                  ui:
-                    description: '(Boolean) Enable Hubble UI (Default: false). Enable
-                      Hubble UI (Default: `false`).'
-                    type: boolean
+                  destinationContext:
+                    description: (String) Kubernetes configuration context of destination
+                      cluster Kubernetes configuration context of destination cluster
+                    type: string
                 type: object
               initProvider:
                 description: THIS IS A BETA FIELD. It will be honored unless the Management
@@ -88,15 +85,6 @@ spec:
                   on creation, but we do not desire to update them after creation,
                   for example because of an external controller is managing them,
                   like an autoscaler.
-                properties:
-                  relay:
-                    description: '(Boolean) Deploy Hubble Relay (Default: true). Deploy
-                      Hubble Relay (Default: `true`).'
-                    type: boolean
-                  ui:
-                    description: '(Boolean) Enable Hubble UI (Default: false). Enable
-                      Hubble UI (Default: `false`).'
-                    type: boolean
                 type: object
               managementPolicies:
                 default:
@@ -259,21 +247,17 @@ spec:
             - forProvider
             type: object
           status:
-            description: HubbleStatus defines the observed state of Hubble.
+            description: ConnectionStatus defines the observed state of Connection.
             properties:
               atProvider:
                 properties:
-                  id:
-                    description: (String) Cilium hubble identifier
+                  destinationContext:
+                    description: (String) Kubernetes configuration context of destination
+                      cluster Kubernetes configuration context of destination cluster
                     type: string
-                  relay:
-                    description: '(Boolean) Deploy Hubble Relay (Default: true). Deploy
-                      Hubble Relay (Default: `true`).'
-                    type: boolean
-                  ui:
-                    description: '(Boolean) Enable Hubble UI (Default: false). Enable
-                      Hubble UI (Default: `false`).'
-                    type: boolean
+                  id:
+                    description: (String) Cilium ClusterMesh Connection identifier
+                    type: string
                 type: object
               conditions:
                 description: Conditions of the resource.

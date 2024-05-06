@@ -1,9 +1,9 @@
-apiVersion: opt.cilium.io/v1alpha1
-kind: Hubble
+apiVersion: cmesh.cilium.io/v1alpha1
+kind: Connection
 metadata:
   name: hello-crossplane
 spec:
   forProvider:
-    ui: true
+    destinationContext: "toto"
   providerConfigRef:
     name: default

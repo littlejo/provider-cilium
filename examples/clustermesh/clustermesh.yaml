@@ -1,9 +1,9 @@
-apiVersion: opt.cilium.io/v1alpha1
-kind: Hubble
+apiVersion: cmesh.cilium.io/v1alpha1
+kind: Enabler
 metadata:
   name: hello-crossplane
 spec:
   forProvider:
-    ui: true
+    serviceType: NodePort
   providerConfigRef:
     name: default
