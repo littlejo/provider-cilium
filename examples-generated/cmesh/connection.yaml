@@ -1,0 +1,11 @@
+apiVersion: cmesh.cilium.io/v1alpha1
+kind: Connection
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cmesh/v1alpha1/connection
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    destinationContext: context-2

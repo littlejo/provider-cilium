@@ -9,9 +9,12 @@ import "github.com/crossplane/upjet/pkg/config"
 // ExternalNameConfigs contains all external name configurations for this
 // provider.
 var ExternalNameConfigs = map[string]config.ExternalName{
-	// Import requires using a randomly generated ID from provider: nl-2e21sda
-	//	"cilium":        config.TemplatedStringAsIdentifier("", "{{ .setup.configuration.helm_release }}"),
-	"cilium_hubble": config.TemplatedStringAsIdentifier("", "cilium-hubble"),
+	"cilium_":                       config.TemplatedStringAsIdentifier("", "{{ .setup.configuration.helm_release }}"),
+	"cilium_hubble":                 config.TemplatedStringAsIdentifier("", "cilium-hubble"),
+	"cilium_config":                 config.TemplatedStringAsIdentifier("", "cilium-config-{{ .parameters.key }}"),
+	"cilium_clustermesh":            config.TemplatedStringAsIdentifier("", "ciliumclustermeshenable"),
+	"cilium_clustermesh_connection": config.TemplatedStringAsIdentifier("", "ciliumclustermeshconnect-{{ .parameters.destination_context }}"),
+	"cilium_kubeproxy_free":         config.TemplatedStringAsIdentifier("", "cilium-kubeproxy-less"),
 }
 
 // ExternalNameConfigurations applies all external name configs listed in the

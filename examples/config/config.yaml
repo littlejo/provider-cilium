@@ -1,9 +1,10 @@
 apiVersion: opt.cilium.io/v1alpha1
-kind: Hubble
+kind: Config
 metadata:
   name: hello-crossplane
 spec:
   forProvider:
-    ui: true
+    key: debug
+    value: "true"
   providerConfigRef:
     name: default

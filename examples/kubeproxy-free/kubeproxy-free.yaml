@@ -1,9 +1,8 @@
 apiVersion: opt.cilium.io/v1alpha1
-kind: Hubble
+kind: KubeProxyFree
 metadata:
   name: hello-crossplane
 spec:
-  forProvider:
-    ui: true
+  forProvider: {}
   providerConfigRef:
     name: default
