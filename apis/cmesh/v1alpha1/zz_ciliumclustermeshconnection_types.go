@@ -17,10 +17,10 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
-type ConnectionInitParameters struct {
+type CiliumClusterMeshConnectionInitParameters struct {
 }
 
-type ConnectionObservation struct {
+type CiliumClusterMeshConnectionObservation struct {
 
 	// (String) Kubernetes configuration context of destination cluster
 	// Kubernetes configuration context of destination cluster
@@ -30,7 +30,7 @@ type ConnectionObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
-type ConnectionParameters struct {
+type CiliumClusterMeshConnectionParameters struct {
 
 	// (String) Kubernetes configuration context of destination cluster
 	// Kubernetes configuration context of destination cluster
@@ -38,10 +38,10 @@ type ConnectionParameters struct {
 	DestinationContext *string `json:"destinationContext,omitempty" tf:"destination_context,omitempty"`
 }
 
-// ConnectionSpec defines the desired state of Connection
-type ConnectionSpec struct {
+// CiliumClusterMeshConnectionSpec defines the desired state of CiliumClusterMeshConnection
+type CiliumClusterMeshConnectionSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     ConnectionParameters `json:"forProvider"`
+	ForProvider     CiliumClusterMeshConnectionParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -52,48 +52,48 @@ type ConnectionSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider ConnectionInitParameters `json:"initProvider,omitempty"`
+	InitProvider CiliumClusterMeshConnectionInitParameters `json:"initProvider,omitempty"`
 }
 
-// ConnectionStatus defines the observed state of Connection.
-type ConnectionStatus struct {
+// CiliumClusterMeshConnectionStatus defines the observed state of CiliumClusterMeshConnection.
+type CiliumClusterMeshConnectionStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        ConnectionObservation `json:"atProvider,omitempty"`
+	AtProvider        CiliumClusterMeshConnectionObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// Connection is the Schema for the Connections API. Cluster Mesh connection resource. This is equivalent to cilium cli: cilium clustermesh connect and cilium clustermesh disconnect: It manages the connections between two Kubernetes clusters.
+// CiliumClusterMeshConnection is the Schema for the CiliumClusterMeshConnections API. Cluster Mesh connection resource. This is equivalent to cilium cli: cilium clustermesh connect and cilium clustermesh disconnect: It manages the connections between two Kubernetes clusters.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,cilium}
-type Connection struct {
+type CiliumClusterMeshConnection struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              ConnectionSpec   `json:"spec"`
-	Status            ConnectionStatus `json:"status,omitempty"`
+	Spec              CiliumClusterMeshConnectionSpec   `json:"spec"`
+	Status            CiliumClusterMeshConnectionStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// ConnectionList contains a list of Connections
-type ConnectionList struct {
+// CiliumClusterMeshConnectionList contains a list of CiliumClusterMeshConnections
+type CiliumClusterMeshConnectionList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []Connection `json:"items"`
+	Items           []CiliumClusterMeshConnection `json:"items"`
 }
 
 // Repository type metadata.
 var (
-	Connection_Kind             = "Connection"
-	Connection_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: Connection_Kind}.String()
-	Connection_KindAPIVersion   = Connection_Kind + "." + CRDGroupVersion.String()
-	Connection_GroupVersionKind = CRDGroupVersion.WithKind(Connection_Kind)
+	CiliumClusterMeshConnection_Kind             = "CiliumClusterMeshConnection"
+	CiliumClusterMeshConnection_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: CiliumClusterMeshConnection_Kind}.String()
+	CiliumClusterMeshConnection_KindAPIVersion   = CiliumClusterMeshConnection_Kind + "." + CRDGroupVersion.String()
+	CiliumClusterMeshConnection_GroupVersionKind = CRDGroupVersion.WithKind(CiliumClusterMeshConnection_Kind)
 )
 
 func init() {
-	SchemeBuilder.Register(&Connection{}, &ConnectionList{})
+	SchemeBuilder.Register(&CiliumClusterMeshConnection{}, &CiliumClusterMeshConnectionList{})
 }

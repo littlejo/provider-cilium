@@ -1,8 +1,8 @@
 apiVersion: opt.cilium.io/v1alpha1
-kind: Config
+kind: CiliumConfig
 metadata:
   annotations:
-    meta.upbound.io/example-id: opt/v1alpha1/config
+    meta.upbound.io/example-id: opt/v1alpha1/ciliumconfig
   labels:
     testing.upbound.io/example-name: example
   name: example

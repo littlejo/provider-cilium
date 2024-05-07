@@ -4,7 +4,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.13.0
-  name: configs.opt.cilium.io
+  name: ciliumconfigs.opt.cilium.io
 spec:
   group: opt.cilium.io
   names:
@@ -12,10 +12,10 @@ spec:
     - crossplane
     - managed
     - cilium
-    kind: Config
-    listKind: ConfigList
-    plural: configs
-    singular: config
+    kind: CiliumConfig
+    listKind: CiliumConfigList
+    plural: ciliumconfigs
+    singular: ciliumconfig
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -34,9 +34,9 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: 'Config is the Schema for the Configs API. Config resource for
-          Cilium. This is equivalent to cilium cli: cilium config: It manages the
-          cilium Kubernetes ConfigMap resource'
+        description: 'CiliumConfig is the Schema for the CiliumConfigs API. Config
+          resource for Cilium. This is equivalent to cilium cli: cilium config: It
+          manages the cilium Kubernetes ConfigMap resource'
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -51,7 +51,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: ConfigSpec defines the desired state of Config
+            description: CiliumConfigSpec defines the desired state of CiliumConfig
             properties:
               deletionPolicy:
                 default: Delete
@@ -267,7 +267,7 @@ spec:
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.value)
                 || (has(self.initProvider) && has(self.initProvider.value))'
           status:
-            description: ConfigStatus defines the observed state of Config.
+            description: CiliumConfigStatus defines the observed state of CiliumConfig.
             properties:
               atProvider:
                 properties:
