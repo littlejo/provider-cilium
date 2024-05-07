@@ -4,18 +4,18 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.13.0
-  name: connections.cmesh.cilium.io
+  name: ciliumdeployments.core.cilium.io
 spec:
-  group: cmesh.cilium.io
+  group: core.cilium.io
   names:
     categories:
     - crossplane
     - managed
     - cilium
-    kind: Connection
-    listKind: ConnectionList
-    plural: connections
-    singular: connection
+    kind: CiliumDeployment
+    listKind: CiliumDeploymentList
+    plural: ciliumdeployments
+    singular: ciliumdeployment
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -34,10 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: 'Connection is the Schema for the Connections API. Cluster Mesh
-          connection resource. This is equivalent to cilium cli: cilium clustermesh
-          connect and cilium clustermesh disconnect: It manages the connections between
-          two Kubernetes clusters.'
+        description: CiliumDeployment is the Schema for the CiliumDeployments API.
+          <no value>
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -52,7 +50,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: ConnectionSpec defines the desired state of Connection
+            description: CiliumDeploymentSpec defines the desired state of CiliumDeployment
             properties:
               deletionPolicy:
                 default: Delete
@@ -69,10 +67,40 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  destinationContext:
-                    description: (String) Kubernetes configuration context of destination
-                      cluster Kubernetes configuration context of destination cluster
+                  dataPath:
+                    description: 'Datapath mode to use { tunnel | native | aws-eni
+                      | gke | azure | aks-byocni } (Default: `autodetected`).'
                     type: string
+                  repository:
+                    description: 'Helm chart repository to download Cilium charts
+                      from (Default: `https://helm.cilium.io`).'
+                    type: string
+                  reset:
+                    description: 'When upgrading, reset the helm values to the ones
+                      built into the chart (Default: `false`).'
+                    type: boolean
+                  reuse:
+                    description: 'When upgrading, reuse the helm values from the latest
+                      release unless any overrides from are set from other flags.
+                      This option takes precedence over HelmResetValues (Default:
+                      `true`).'
+                    type: boolean
+                  set:
+                    description: 'Set helm values on the command line (can specify
+                      multiple or separate values with commas: key1=val1,key2=val2
+                      (Default: `[]`).'
+                    items:
+                      type: string
+                    type: array
+                  values:
+                    description: 'values in raw yaml to pass to helm. (Default: `empty`).'
+                    type: string
+                  version:
+                    description: 'Version of Cilium (Default: `v1.15.4`).'
+                    type: string
+                  wait:
+                    description: 'Wait for Cilium status is ok (Default: `true`).'
+                    type: boolean
                 type: object
               initProvider:
                 description: THIS IS A BETA FIELD. It will be honored unless the Management
@@ -85,6 +113,41 @@ spec:
                   on creation, but we do not desire to update them after creation,
                   for example because of an external controller is managing them,
                   like an autoscaler.
+                properties:
+                  dataPath:
+                    description: 'Datapath mode to use { tunnel | native | aws-eni
+                      | gke | azure | aks-byocni } (Default: `autodetected`).'
+                    type: string
+                  repository:
+                    description: 'Helm chart repository to download Cilium charts
+                      from (Default: `https://helm.cilium.io`).'
+                    type: string
+                  reset:
+                    description: 'When upgrading, reset the helm values to the ones
+                      built into the chart (Default: `false`).'
+                    type: boolean
+                  reuse:
+                    description: 'When upgrading, reuse the helm values from the latest
+                      release unless any overrides from are set from other flags.
+                      This option takes precedence over HelmResetValues (Default:
+                      `true`).'
+                    type: boolean
+                  set:
+                    description: 'Set helm values on the command line (can specify
+                      multiple or separate values with commas: key1=val1,key2=val2
+                      (Default: `[]`).'
+                    items:
+                      type: string
+                    type: array
+                  values:
+                    description: 'values in raw yaml to pass to helm. (Default: `empty`).'
+                    type: string
+                  version:
+                    description: 'Version of Cilium (Default: `v1.15.4`).'
+                    type: string
+                  wait:
+                    description: 'Wait for Cilium status is ok (Default: `true`).'
+                    type: boolean
                 type: object
               managementPolicies:
                 default:
@@ -247,17 +310,49 @@ spec:
             - forProvider
             type: object
           status:
-            description: ConnectionStatus defines the observed state of Connection.
+            description: CiliumDeploymentStatus defines the observed state of CiliumDeployment.
             properties:
               atProvider:
                 properties:
-                  destinationContext:
-                    description: (String) Kubernetes configuration context of destination
-                      cluster Kubernetes configuration context of destination cluster
+                  dataPath:
+                    description: 'Datapath mode to use { tunnel | native | aws-eni
+                      | gke | azure | aks-byocni } (Default: `autodetected`).'
+                    type: string
+                  helmValues:
+                    description: Helm values (`helm get values -n kube-system cilium`)
                     type: string
                   id:
-                    description: (String) Cilium ClusterMesh Connection identifier
                     type: string
+                  repository:
+                    description: 'Helm chart repository to download Cilium charts
+                      from (Default: `https://helm.cilium.io`).'
+                    type: string
+                  reset:
+                    description: 'When upgrading, reset the helm values to the ones
+                      built into the chart (Default: `false`).'
+                    type: boolean
+                  reuse:
+                    description: 'When upgrading, reuse the helm values from the latest
+                      release unless any overrides from are set from other flags.
+                      This option takes precedence over HelmResetValues (Default:
+                      `true`).'
+                    type: boolean
+                  set:
+                    description: 'Set helm values on the command line (can specify
+                      multiple or separate values with commas: key1=val1,key2=val2
+                      (Default: `[]`).'
+                    items:
+                      type: string
+                    type: array
+                  values:
+                    description: 'values in raw yaml to pass to helm. (Default: `empty`).'
+                    type: string
+                  version:
+                    description: 'Version of Cilium (Default: `v1.15.4`).'
+                    type: string
+                  wait:
+                    description: 'Wait for Cilium status is ok (Default: `true`).'
+                    type: boolean
                 type: object
               conditions:
                 description: Conditions of the resource.

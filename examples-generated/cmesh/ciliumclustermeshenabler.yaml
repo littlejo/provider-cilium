@@ -1,8 +1,8 @@
 apiVersion: cmesh.cilium.io/v1alpha1
-kind: Enabler
+kind: CiliumClusterMeshEnabler
 metadata:
   annotations:
-    meta.upbound.io/example-id: cmesh/v1alpha1/enabler
+    meta.upbound.io/example-id: cmesh/v1alpha1/ciliumclustermeshenabler
   labels:
     testing.upbound.io/example-name: example
   name: example

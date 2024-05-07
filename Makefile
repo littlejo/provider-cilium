@@ -8,7 +8,7 @@ export TERRAFORM_VERSION ?= 1.2.1
 
 export TERRAFORM_PROVIDER_SOURCE ?= littlejo/cilium
 export TERRAFORM_PROVIDER_REPO ?= https://github.com/littlejo/terraform-provider-cilium
-export TERRAFORM_PROVIDER_VERSION ?= 0.2.2
+export TERRAFORM_PROVIDER_VERSION ?= 0.2.4
 export TERRAFORM_PROVIDER_DOWNLOAD_NAME ?= terraform-provider-cilium
 export TERRAFORM_PROVIDER_DOWNLOAD_URL_PREFIX ?= $(TERRAFORM_PROVIDER_REPO)/releases/download/v$(TERRAFORM_PROVIDER_VERSION)/
 export TERRAFORM_NATIVE_PROVIDER_BINARY ?= terraform-provider-cilium_v0.2.2

@@ -17,7 +17,7 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
-type EnablerInitParameters struct {
+type CiliumClusterMeshEnablerInitParameters struct {
 
 	// (Boolean) Enable support for external workloads, such as VMs (Default: false).
 	// Enable support for external workloads, such as VMs (Default: `false`).
@@ -36,7 +36,7 @@ type EnablerInitParameters struct {
 	Wait *bool `json:"wait,omitempty" tf:"wait,omitempty"`
 }
 
-type EnablerObservation struct {
+type CiliumClusterMeshEnablerObservation struct {
 
 	// (Boolean) Enable support for external workloads, such as VMs (Default: false).
 	// Enable support for external workloads, such as VMs (Default: `false`).
@@ -58,7 +58,7 @@ type EnablerObservation struct {
 	Wait *bool `json:"wait,omitempty" tf:"wait,omitempty"`
 }
 
-type EnablerParameters struct {
+type CiliumClusterMeshEnablerParameters struct {
 
 	// (Boolean) Enable support for external workloads, such as VMs (Default: false).
 	// Enable support for external workloads, such as VMs (Default: `false`).
@@ -81,10 +81,10 @@ type EnablerParameters struct {
 	Wait *bool `json:"wait,omitempty" tf:"wait,omitempty"`
 }
 
-// EnablerSpec defines the desired state of Enabler
-type EnablerSpec struct {
+// CiliumClusterMeshEnablerSpec defines the desired state of CiliumClusterMeshEnabler
+type CiliumClusterMeshEnablerSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     EnablerParameters `json:"forProvider"`
+	ForProvider     CiliumClusterMeshEnablerParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -95,48 +95,48 @@ type EnablerSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider EnablerInitParameters `json:"initProvider,omitempty"`
+	InitProvider CiliumClusterMeshEnablerInitParameters `json:"initProvider,omitempty"`
 }
 
-// EnablerStatus defines the observed state of Enabler.
-type EnablerStatus struct {
+// CiliumClusterMeshEnablerStatus defines the observed state of CiliumClusterMeshEnabler.
+type CiliumClusterMeshEnablerStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        EnablerObservation `json:"atProvider,omitempty"`
+	AtProvider        CiliumClusterMeshEnablerObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// Enabler is the Schema for the Enablers API. Cluster Mesh resource. This is equivalent to cilium cli: cilium clustermesh enable and cilium clustermesh disable: It manages the activation of Cluster Mesh on one Kubernetes cluster.
+// CiliumClusterMeshEnabler is the Schema for the CiliumClusterMeshEnablers API. Cluster Mesh resource. This is equivalent to cilium cli: cilium clustermesh enable and cilium clustermesh disable: It manages the activation of Cluster Mesh on one Kubernetes cluster.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,cilium}
-type Enabler struct {
+type CiliumClusterMeshEnabler struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              EnablerSpec   `json:"spec"`
-	Status            EnablerStatus `json:"status,omitempty"`
+	Spec              CiliumClusterMeshEnablerSpec   `json:"spec"`
+	Status            CiliumClusterMeshEnablerStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// EnablerList contains a list of Enablers
-type EnablerList struct {
+// CiliumClusterMeshEnablerList contains a list of CiliumClusterMeshEnablers
+type CiliumClusterMeshEnablerList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []Enabler `json:"items"`
+	Items           []CiliumClusterMeshEnabler `json:"items"`
 }
 
 // Repository type metadata.
 var (
-	Enabler_Kind             = "Enabler"
-	Enabler_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: Enabler_Kind}.String()
-	Enabler_KindAPIVersion   = Enabler_Kind + "." + CRDGroupVersion.String()
-	Enabler_GroupVersionKind = CRDGroupVersion.WithKind(Enabler_Kind)
+	CiliumClusterMeshEnabler_Kind             = "CiliumClusterMeshEnabler"
+	CiliumClusterMeshEnabler_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: CiliumClusterMeshEnabler_Kind}.String()
+	CiliumClusterMeshEnabler_KindAPIVersion   = CiliumClusterMeshEnabler_Kind + "." + CRDGroupVersion.String()
+	CiliumClusterMeshEnabler_GroupVersionKind = CRDGroupVersion.WithKind(CiliumClusterMeshEnabler_Kind)
 )
 
 func init() {
-	SchemeBuilder.Register(&Enabler{}, &EnablerList{})
+	SchemeBuilder.Register(&CiliumClusterMeshEnabler{}, &CiliumClusterMeshEnablerList{})
 }

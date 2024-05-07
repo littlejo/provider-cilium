@@ -1,5 +1,5 @@
 apiVersion: cmesh.cilium.io/v1alpha1
-kind: Connection
+kind: CiliumClusterMeshConnection
 metadata:
   name: hello-crossplane
 spec:

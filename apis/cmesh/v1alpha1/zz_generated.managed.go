@@ -7,122 +7,122 @@ package v1alpha1
 
 import xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 
-// GetCondition of this Connection.
-func (mg *Connection) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+// GetCondition of this CiliumClusterMeshConnection.
+func (mg *CiliumClusterMeshConnection) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
-// GetDeletionPolicy of this Connection.
-func (mg *Connection) GetDeletionPolicy() xpv1.DeletionPolicy {
+// GetDeletionPolicy of this CiliumClusterMeshConnection.
+func (mg *CiliumClusterMeshConnection) GetDeletionPolicy() xpv1.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
 }
 
-// GetManagementPolicies of this Connection.
-func (mg *Connection) GetManagementPolicies() xpv1.ManagementPolicies {
+// GetManagementPolicies of this CiliumClusterMeshConnection.
+func (mg *CiliumClusterMeshConnection) GetManagementPolicies() xpv1.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
-// GetProviderConfigReference of this Connection.
-func (mg *Connection) GetProviderConfigReference() *xpv1.Reference {
+// GetProviderConfigReference of this CiliumClusterMeshConnection.
+func (mg *CiliumClusterMeshConnection) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this Connection.
-func (mg *Connection) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+// GetPublishConnectionDetailsTo of this CiliumClusterMeshConnection.
+func (mg *CiliumClusterMeshConnection) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
-// GetWriteConnectionSecretToReference of this Connection.
-func (mg *Connection) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+// GetWriteConnectionSecretToReference of this CiliumClusterMeshConnection.
+func (mg *CiliumClusterMeshConnection) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this Connection.
-func (mg *Connection) SetConditions(c ...xpv1.Condition) {
+// SetConditions of this CiliumClusterMeshConnection.
+func (mg *CiliumClusterMeshConnection) SetConditions(c ...xpv1.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
-// SetDeletionPolicy of this Connection.
-func (mg *Connection) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+// SetDeletionPolicy of this CiliumClusterMeshConnection.
+func (mg *CiliumClusterMeshConnection) SetDeletionPolicy(r xpv1.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
 }
 
-// SetManagementPolicies of this Connection.
-func (mg *Connection) SetManagementPolicies(r xpv1.ManagementPolicies) {
+// SetManagementPolicies of this CiliumClusterMeshConnection.
+func (mg *CiliumClusterMeshConnection) SetManagementPolicies(r xpv1.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
-// SetProviderConfigReference of this Connection.
-func (mg *Connection) SetProviderConfigReference(r *xpv1.Reference) {
+// SetProviderConfigReference of this CiliumClusterMeshConnection.
+func (mg *CiliumClusterMeshConnection) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
-// SetPublishConnectionDetailsTo of this Connection.
-func (mg *Connection) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+// SetPublishConnectionDetailsTo of this CiliumClusterMeshConnection.
+func (mg *CiliumClusterMeshConnection) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
-// SetWriteConnectionSecretToReference of this Connection.
-func (mg *Connection) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+// SetWriteConnectionSecretToReference of this CiliumClusterMeshConnection.
+func (mg *CiliumClusterMeshConnection) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this Enabler.
-func (mg *Enabler) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+// GetCondition of this CiliumClusterMeshEnabler.
+func (mg *CiliumClusterMeshEnabler) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
-// GetDeletionPolicy of this Enabler.
-func (mg *Enabler) GetDeletionPolicy() xpv1.DeletionPolicy {
+// GetDeletionPolicy of this CiliumClusterMeshEnabler.
+func (mg *CiliumClusterMeshEnabler) GetDeletionPolicy() xpv1.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
 }
 
-// GetManagementPolicies of this Enabler.
-func (mg *Enabler) GetManagementPolicies() xpv1.ManagementPolicies {
+// GetManagementPolicies of this CiliumClusterMeshEnabler.
+func (mg *CiliumClusterMeshEnabler) GetManagementPolicies() xpv1.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
-// GetProviderConfigReference of this Enabler.
-func (mg *Enabler) GetProviderConfigReference() *xpv1.Reference {
+// GetProviderConfigReference of this CiliumClusterMeshEnabler.
+func (mg *CiliumClusterMeshEnabler) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this Enabler.
-func (mg *Enabler) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+// GetPublishConnectionDetailsTo of this CiliumClusterMeshEnabler.
+func (mg *CiliumClusterMeshEnabler) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
-// GetWriteConnectionSecretToReference of this Enabler.
-func (mg *Enabler) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+// GetWriteConnectionSecretToReference of this CiliumClusterMeshEnabler.
+func (mg *CiliumClusterMeshEnabler) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this Enabler.
-func (mg *Enabler) SetConditions(c ...xpv1.Condition) {
+// SetConditions of this CiliumClusterMeshEnabler.
+func (mg *CiliumClusterMeshEnabler) SetConditions(c ...xpv1.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
-// SetDeletionPolicy of this Enabler.
-func (mg *Enabler) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+// SetDeletionPolicy of this CiliumClusterMeshEnabler.
+func (mg *CiliumClusterMeshEnabler) SetDeletionPolicy(r xpv1.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
 }
 
-// SetManagementPolicies of this Enabler.
-func (mg *Enabler) SetManagementPolicies(r xpv1.ManagementPolicies) {
+// SetManagementPolicies of this CiliumClusterMeshEnabler.
+func (mg *CiliumClusterMeshEnabler) SetManagementPolicies(r xpv1.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
-// SetProviderConfigReference of this Enabler.
-func (mg *Enabler) SetProviderConfigReference(r *xpv1.Reference) {
+// SetProviderConfigReference of this CiliumClusterMeshEnabler.
+func (mg *CiliumClusterMeshEnabler) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
-// SetPublishConnectionDetailsTo of this Enabler.
-func (mg *Enabler) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+// SetPublishConnectionDetailsTo of this CiliumClusterMeshEnabler.
+func (mg *CiliumClusterMeshEnabler) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
-// SetWriteConnectionSecretToReference of this Enabler.
-func (mg *Enabler) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+// SetWriteConnectionSecretToReference of this CiliumClusterMeshEnabler.
+func (mg *CiliumClusterMeshEnabler) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }

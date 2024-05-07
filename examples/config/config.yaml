@@ -1,5 +1,5 @@
 apiVersion: opt.cilium.io/v1alpha1
-kind: Config
+kind: CiliumConfig
 metadata:
   name: hello-crossplane
 spec:

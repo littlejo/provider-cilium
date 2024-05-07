@@ -15,6 +15,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 
 	v1alpha1 "github.com/littlejo/provider-cilium/apis/cmesh/v1alpha1"
+	v1alpha1core "github.com/littlejo/provider-cilium/apis/core/v1alpha1"
 	v1alpha1opt "github.com/littlejo/provider-cilium/apis/opt/v1alpha1"
 	v1alpha1apis "github.com/littlejo/provider-cilium/apis/v1alpha1"
 	v1beta1 "github.com/littlejo/provider-cilium/apis/v1beta1"
@@ -24,6 +25,7 @@ func init() {
 	// Register the types with the Scheme so the components can map objects to GroupVersionKinds and back
 	AddToSchemes = append(AddToSchemes,
 		v1alpha1.SchemeBuilder.AddToScheme,
+		v1alpha1core.SchemeBuilder.AddToScheme,
 		v1alpha1opt.SchemeBuilder.AddToScheme,
 		v1alpha1apis.SchemeBuilder.AddToScheme,
 		v1beta1.SchemeBuilder.AddToScheme,
