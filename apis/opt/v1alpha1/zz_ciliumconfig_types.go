@@ -17,7 +17,7 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
-type ConfigInitParameters struct {
+type CiliumConfigInitParameters struct {
 
 	// (Boolean) Restart Cilium pods (Default: true).
 	// Restart Cilium pods (Default: `true`).
@@ -28,7 +28,7 @@ type ConfigInitParameters struct {
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
-type ConfigObservation struct {
+type CiliumConfigObservation struct {
 
 	// (String) Cilium config identifier
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -46,7 +46,7 @@ type ConfigObservation struct {
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
-type ConfigParameters struct {
+type CiliumConfigParameters struct {
 
 	// (String) Key of the config
 	// Key of the config
@@ -64,10 +64,10 @@ type ConfigParameters struct {
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
-// ConfigSpec defines the desired state of Config
-type ConfigSpec struct {
+// CiliumConfigSpec defines the desired state of CiliumConfig
+type CiliumConfigSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     ConfigParameters `json:"forProvider"`
+	ForProvider     CiliumConfigParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -78,49 +78,49 @@ type ConfigSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider ConfigInitParameters `json:"initProvider,omitempty"`
+	InitProvider CiliumConfigInitParameters `json:"initProvider,omitempty"`
 }
 
-// ConfigStatus defines the observed state of Config.
-type ConfigStatus struct {
+// CiliumConfigStatus defines the observed state of CiliumConfig.
+type CiliumConfigStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        ConfigObservation `json:"atProvider,omitempty"`
+	AtProvider        CiliumConfigObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// Config is the Schema for the Configs API. Config resource for Cilium. This is equivalent to cilium cli: cilium config: It manages the cilium Kubernetes ConfigMap resource
+// CiliumConfig is the Schema for the CiliumConfigs API. Config resource for Cilium. This is equivalent to cilium cli: cilium config: It manages the cilium Kubernetes ConfigMap resource
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,cilium}
-type Config struct {
+type CiliumConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.value) || (has(self.initProvider) && has(self.initProvider.value))",message="spec.forProvider.value is a required parameter"
-	Spec   ConfigSpec   `json:"spec"`
-	Status ConfigStatus `json:"status,omitempty"`
+	Spec   CiliumConfigSpec   `json:"spec"`
+	Status CiliumConfigStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// ConfigList contains a list of Configs
-type ConfigList struct {
+// CiliumConfigList contains a list of CiliumConfigs
+type CiliumConfigList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []Config `json:"items"`
+	Items           []CiliumConfig `json:"items"`
 }
 
 // Repository type metadata.
 var (
-	Config_Kind             = "Config"
-	Config_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: Config_Kind}.String()
-	Config_KindAPIVersion   = Config_Kind + "." + CRDGroupVersion.String()
-	Config_GroupVersionKind = CRDGroupVersion.WithKind(Config_Kind)
+	CiliumConfig_Kind             = "CiliumConfig"
+	CiliumConfig_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: CiliumConfig_Kind}.String()
+	CiliumConfig_KindAPIVersion   = CiliumConfig_Kind + "." + CRDGroupVersion.String()
+	CiliumConfig_GroupVersionKind = CRDGroupVersion.WithKind(CiliumConfig_Kind)
 )
 
 func init() {
-	SchemeBuilder.Register(&Config{}, &ConfigList{})
+	SchemeBuilder.Register(&CiliumConfig{}, &CiliumConfigList{})
 }

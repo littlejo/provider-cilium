@@ -4,7 +4,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.13.0
-  name: connections.cmesh.cilium.io
+  name: ciliumclustermeshconnections.cmesh.cilium.io
 spec:
   group: cmesh.cilium.io
   names:
@@ -12,10 +12,10 @@ spec:
     - crossplane
     - managed
     - cilium
-    kind: Connection
-    listKind: ConnectionList
-    plural: connections
-    singular: connection
+    kind: CiliumClusterMeshConnection
+    listKind: CiliumClusterMeshConnectionList
+    plural: ciliumclustermeshconnections
+    singular: ciliumclustermeshconnection
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -34,10 +34,10 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: 'Connection is the Schema for the Connections API. Cluster Mesh
-          connection resource. This is equivalent to cilium cli: cilium clustermesh
-          connect and cilium clustermesh disconnect: It manages the connections between
-          two Kubernetes clusters.'
+        description: 'CiliumClusterMeshConnection is the Schema for the CiliumClusterMeshConnections
+          API. Cluster Mesh connection resource. This is equivalent to cilium cli:
+          cilium clustermesh connect and cilium clustermesh disconnect: It manages
+          the connections between two Kubernetes clusters.'
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -52,7 +52,8 @@ spec:
           metadata:
             type: object
           spec:
-            description: ConnectionSpec defines the desired state of Connection
+            description: CiliumClusterMeshConnectionSpec defines the desired state
+              of CiliumClusterMeshConnection
             properties:
               deletionPolicy:
                 default: Delete
@@ -247,7 +248,8 @@ spec:
             - forProvider
             type: object
           status:
-            description: ConnectionStatus defines the observed state of Connection.
+            description: CiliumClusterMeshConnectionStatus defines the observed state
+              of CiliumClusterMeshConnection.
             properties:
               atProvider:
                 properties:

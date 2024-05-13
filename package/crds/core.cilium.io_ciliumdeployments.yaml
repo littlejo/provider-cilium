@@ -4,7 +4,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.13.0
-  name: deploys.core.cilium.io
+  name: ciliumdeployments.core.cilium.io
 spec:
   group: core.cilium.io
   names:
@@ -12,10 +12,10 @@ spec:
     - crossplane
     - managed
     - cilium
-    kind: Deploy
-    listKind: DeployList
-    plural: deploys
-    singular: deploy
+    kind: CiliumDeployment
+    listKind: CiliumDeploymentList
+    plural: ciliumdeployments
+    singular: ciliumdeployment
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -34,7 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Deploy is the Schema for the Deploys API. <no value>
+        description: CiliumDeployment is the Schema for the CiliumDeployments API.
+          <no value>
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -49,7 +50,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: DeploySpec defines the desired state of Deploy
+            description: CiliumDeploymentSpec defines the desired state of CiliumDeployment
             properties:
               deletionPolicy:
                 default: Delete
@@ -309,7 +310,7 @@ spec:
             - forProvider
             type: object
           status:
-            description: DeployStatus defines the observed state of Deploy.
+            description: CiliumDeploymentStatus defines the observed state of CiliumDeployment.
             properties:
               atProvider:
                 properties:

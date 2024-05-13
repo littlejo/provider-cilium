@@ -17,18 +17,18 @@ import (
 	"github.com/crossplane/upjet/pkg/resource/json"
 )
 
-// GetTerraformResourceType returns Terraform resource type for this Enabler
-func (mg *Enabler) GetTerraformResourceType() string {
+// GetTerraformResourceType returns Terraform resource type for this CiliumClusterMeshEnabler
+func (mg *CiliumClusterMeshEnabler) GetTerraformResourceType() string {
 	return "cilium_clustermesh"
 }
 
-// GetConnectionDetailsMapping for this Enabler
-func (tr *Enabler) GetConnectionDetailsMapping() map[string]string {
+// GetConnectionDetailsMapping for this CiliumClusterMeshEnabler
+func (tr *CiliumClusterMeshEnabler) GetConnectionDetailsMapping() map[string]string {
 	return nil
 }
 
-// GetObservation of this Enabler
-func (tr *Enabler) GetObservation() (map[string]any, error) {
+// GetObservation of this CiliumClusterMeshEnabler
+func (tr *CiliumClusterMeshEnabler) GetObservation() (map[string]any, error) {
 	o, err := json.TFParser.Marshal(tr.Status.AtProvider)
 	if err != nil {
 		return nil, err
@@ -37,8 +37,8 @@ func (tr *Enabler) GetObservation() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(o, &base)
 }
 
-// SetObservation for this Enabler
-func (tr *Enabler) SetObservation(obs map[string]any) error {
+// SetObservation for this CiliumClusterMeshEnabler
+func (tr *CiliumClusterMeshEnabler) SetObservation(obs map[string]any) error {
 	p, err := json.TFParser.Marshal(obs)
 	if err != nil {
 		return err
@@ -46,16 +46,16 @@ func (tr *Enabler) SetObservation(obs map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
 }
 
-// GetID returns ID of underlying Terraform resource of this Enabler
-func (tr *Enabler) GetID() string {
+// GetID returns ID of underlying Terraform resource of this CiliumClusterMeshEnabler
+func (tr *CiliumClusterMeshEnabler) GetID() string {
 	if tr.Status.AtProvider.ID == nil {
 		return ""
 	}
 	return *tr.Status.AtProvider.ID
 }
 
-// GetParameters of this Enabler
-func (tr *Enabler) GetParameters() (map[string]any, error) {
+// GetParameters of this CiliumClusterMeshEnabler
+func (tr *CiliumClusterMeshEnabler) GetParameters() (map[string]any, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)
 	if err != nil {
 		return nil, err
@@ -64,8 +64,8 @@ func (tr *Enabler) GetParameters() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// SetParameters for this Enabler
-func (tr *Enabler) SetParameters(params map[string]any) error {
+// SetParameters for this CiliumClusterMeshEnabler
+func (tr *CiliumClusterMeshEnabler) SetParameters(params map[string]any) error {
 	p, err := json.TFParser.Marshal(params)
 	if err != nil {
 		return err
@@ -73,8 +73,8 @@ func (tr *Enabler) SetParameters(params map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
 }
 
-// GetInitParameters of this Enabler
-func (tr *Enabler) GetInitParameters() (map[string]any, error) {
+// GetInitParameters of this CiliumClusterMeshEnabler
+func (tr *CiliumClusterMeshEnabler) GetInitParameters() (map[string]any, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
 	if err != nil {
 		return nil, err
@@ -83,10 +83,10 @@ func (tr *Enabler) GetInitParameters() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// LateInitialize this Enabler using its observed tfState.
+// LateInitialize this CiliumClusterMeshEnabler using its observed tfState.
 // returns True if there are any spec changes for the resource.
-func (tr *Enabler) LateInitialize(attrs []byte) (bool, error) {
-	params := &EnablerParameters{}
+func (tr *CiliumClusterMeshEnabler) LateInitialize(attrs []byte) (bool, error) {
+	params := &CiliumClusterMeshEnablerParameters{}
 	if err := json.TFParser.Unmarshal(attrs, params); err != nil {
 		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
 	}
@@ -97,22 +97,22 @@ func (tr *Enabler) LateInitialize(attrs []byte) (bool, error) {
 }
 
 // GetTerraformSchemaVersion returns the associated Terraform schema version
-func (tr *Enabler) GetTerraformSchemaVersion() int {
+func (tr *CiliumClusterMeshEnabler) GetTerraformSchemaVersion() int {
 	return 0
 }
 
-// GetTerraformResourceType returns Terraform resource type for this Connection
-func (mg *Connection) GetTerraformResourceType() string {
+// GetTerraformResourceType returns Terraform resource type for this CiliumClusterMeshConnection
+func (mg *CiliumClusterMeshConnection) GetTerraformResourceType() string {
 	return "cilium_clustermesh_connection"
 }
 
-// GetConnectionDetailsMapping for this Connection
-func (tr *Connection) GetConnectionDetailsMapping() map[string]string {
+// GetConnectionDetailsMapping for this CiliumClusterMeshConnection
+func (tr *CiliumClusterMeshConnection) GetConnectionDetailsMapping() map[string]string {
 	return nil
 }
 
-// GetObservation of this Connection
-func (tr *Connection) GetObservation() (map[string]any, error) {
+// GetObservation of this CiliumClusterMeshConnection
+func (tr *CiliumClusterMeshConnection) GetObservation() (map[string]any, error) {
 	o, err := json.TFParser.Marshal(tr.Status.AtProvider)
 	if err != nil {
 		return nil, err
@@ -121,8 +121,8 @@ func (tr *Connection) GetObservation() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(o, &base)
 }
 
-// SetObservation for this Connection
-func (tr *Connection) SetObservation(obs map[string]any) error {
+// SetObservation for this CiliumClusterMeshConnection
+func (tr *CiliumClusterMeshConnection) SetObservation(obs map[string]any) error {
 	p, err := json.TFParser.Marshal(obs)
 	if err != nil {
 		return err
@@ -130,16 +130,16 @@ func (tr *Connection) SetObservation(obs map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
 }
 
-// GetID returns ID of underlying Terraform resource of this Connection
-func (tr *Connection) GetID() string {
+// GetID returns ID of underlying Terraform resource of this CiliumClusterMeshConnection
+func (tr *CiliumClusterMeshConnection) GetID() string {
 	if tr.Status.AtProvider.ID == nil {
 		return ""
 	}
 	return *tr.Status.AtProvider.ID
 }
 
-// GetParameters of this Connection
-func (tr *Connection) GetParameters() (map[string]any, error) {
+// GetParameters of this CiliumClusterMeshConnection
+func (tr *CiliumClusterMeshConnection) GetParameters() (map[string]any, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)
 	if err != nil {
 		return nil, err
@@ -148,8 +148,8 @@ func (tr *Connection) GetParameters() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// SetParameters for this Connection
-func (tr *Connection) SetParameters(params map[string]any) error {
+// SetParameters for this CiliumClusterMeshConnection
+func (tr *CiliumClusterMeshConnection) SetParameters(params map[string]any) error {
 	p, err := json.TFParser.Marshal(params)
 	if err != nil {
 		return err
@@ -157,8 +157,8 @@ func (tr *Connection) SetParameters(params map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
 }
 
-// GetInitParameters of this Connection
-func (tr *Connection) GetInitParameters() (map[string]any, error) {
+// GetInitParameters of this CiliumClusterMeshConnection
+func (tr *CiliumClusterMeshConnection) GetInitParameters() (map[string]any, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
 	if err != nil {
 		return nil, err
@@ -167,10 +167,10 @@ func (tr *Connection) GetInitParameters() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// LateInitialize this Connection using its observed tfState.
+// LateInitialize this CiliumClusterMeshConnection using its observed tfState.
 // returns True if there are any spec changes for the resource.
-func (tr *Connection) LateInitialize(attrs []byte) (bool, error) {
-	params := &ConnectionParameters{}
+func (tr *CiliumClusterMeshConnection) LateInitialize(attrs []byte) (bool, error) {
+	params := &CiliumClusterMeshConnectionParameters{}
 	if err := json.TFParser.Unmarshal(attrs, params); err != nil {
 		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
 	}
@@ -181,6 +181,6 @@ func (tr *Connection) LateInitialize(attrs []byte) (bool, error) {
 }
 
 // GetTerraformSchemaVersion returns the associated Terraform schema version
-func (tr *Connection) GetTerraformSchemaVersion() int {
+func (tr *CiliumClusterMeshConnection) GetTerraformSchemaVersion() int {
 	return 0
 }

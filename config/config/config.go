@@ -6,5 +6,6 @@ import "github.com/crossplane/upjet/pkg/config"
 func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("cilium_config", func(r *config.Resource) {
 		r.ShortGroup = "opt"
+		r.Kind = "CiliumConfig"
 	})
 }

@@ -1,5 +1,5 @@
 apiVersion: core.cilium.io/v1alpha1
-kind: Deploy
+kind: CiliumDeployment
 metadata:
   name: hello-crossplane
 spec:

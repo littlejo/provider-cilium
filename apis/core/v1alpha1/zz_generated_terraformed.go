@@ -17,18 +17,18 @@ import (
 	"github.com/crossplane/upjet/pkg/resource/json"
 )
 
-// GetTerraformResourceType returns Terraform resource type for this Deploy
-func (mg *Deploy) GetTerraformResourceType() string {
+// GetTerraformResourceType returns Terraform resource type for this CiliumDeployment
+func (mg *CiliumDeployment) GetTerraformResourceType() string {
 	return "cilium_deploy"
 }
 
-// GetConnectionDetailsMapping for this Deploy
-func (tr *Deploy) GetConnectionDetailsMapping() map[string]string {
+// GetConnectionDetailsMapping for this CiliumDeployment
+func (tr *CiliumDeployment) GetConnectionDetailsMapping() map[string]string {
 	return nil
 }
 
-// GetObservation of this Deploy
-func (tr *Deploy) GetObservation() (map[string]any, error) {
+// GetObservation of this CiliumDeployment
+func (tr *CiliumDeployment) GetObservation() (map[string]any, error) {
 	o, err := json.TFParser.Marshal(tr.Status.AtProvider)
 	if err != nil {
 		return nil, err
@@ -37,8 +37,8 @@ func (tr *Deploy) GetObservation() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(o, &base)
 }
 
-// SetObservation for this Deploy
-func (tr *Deploy) SetObservation(obs map[string]any) error {
+// SetObservation for this CiliumDeployment
+func (tr *CiliumDeployment) SetObservation(obs map[string]any) error {
 	p, err := json.TFParser.Marshal(obs)
 	if err != nil {
 		return err
@@ -46,16 +46,16 @@ func (tr *Deploy) SetObservation(obs map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
 }
 
-// GetID returns ID of underlying Terraform resource of this Deploy
-func (tr *Deploy) GetID() string {
+// GetID returns ID of underlying Terraform resource of this CiliumDeployment
+func (tr *CiliumDeployment) GetID() string {
 	if tr.Status.AtProvider.ID == nil {
 		return ""
 	}
 	return *tr.Status.AtProvider.ID
 }
 
-// GetParameters of this Deploy
-func (tr *Deploy) GetParameters() (map[string]any, error) {
+// GetParameters of this CiliumDeployment
+func (tr *CiliumDeployment) GetParameters() (map[string]any, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)
 	if err != nil {
 		return nil, err
@@ -64,8 +64,8 @@ func (tr *Deploy) GetParameters() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// SetParameters for this Deploy
-func (tr *Deploy) SetParameters(params map[string]any) error {
+// SetParameters for this CiliumDeployment
+func (tr *CiliumDeployment) SetParameters(params map[string]any) error {
 	p, err := json.TFParser.Marshal(params)
 	if err != nil {
 		return err
@@ -73,8 +73,8 @@ func (tr *Deploy) SetParameters(params map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
 }
 
-// GetInitParameters of this Deploy
-func (tr *Deploy) GetInitParameters() (map[string]any, error) {
+// GetInitParameters of this CiliumDeployment
+func (tr *CiliumDeployment) GetInitParameters() (map[string]any, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
 	if err != nil {
 		return nil, err
@@ -83,10 +83,10 @@ func (tr *Deploy) GetInitParameters() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// LateInitialize this Deploy using its observed tfState.
+// LateInitialize this CiliumDeployment using its observed tfState.
 // returns True if there are any spec changes for the resource.
-func (tr *Deploy) LateInitialize(attrs []byte) (bool, error) {
-	params := &DeployParameters{}
+func (tr *CiliumDeployment) LateInitialize(attrs []byte) (bool, error) {
+	params := &CiliumDeploymentParameters{}
 	if err := json.TFParser.Unmarshal(attrs, params); err != nil {
 		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
 	}
@@ -97,6 +97,6 @@ func (tr *Deploy) LateInitialize(attrs []byte) (bool, error) {
 }
 
 // GetTerraformSchemaVersion returns the associated Terraform schema version
-func (tr *Deploy) GetTerraformSchemaVersion() int {
+func (tr *CiliumDeployment) GetTerraformSchemaVersion() int {
 	return 0
 }

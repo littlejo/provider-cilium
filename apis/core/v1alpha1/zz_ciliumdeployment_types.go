@@ -17,7 +17,7 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
-type DeployInitParameters struct {
+type CiliumDeploymentInitParameters struct {
 
 	// Datapath mode to use { tunnel | native | aws-eni | gke | azure | aks-byocni } (Default: `autodetected`).
 	DataPath *string `json:"dataPath,omitempty" tf:"data_path,omitempty"`
@@ -44,7 +44,7 @@ type DeployInitParameters struct {
 	Wait *bool `json:"wait,omitempty" tf:"wait,omitempty"`
 }
 
-type DeployObservation struct {
+type CiliumDeploymentObservation struct {
 
 	// Datapath mode to use { tunnel | native | aws-eni | gke | azure | aks-byocni } (Default: `autodetected`).
 	DataPath *string `json:"dataPath,omitempty" tf:"data_path,omitempty"`
@@ -76,7 +76,7 @@ type DeployObservation struct {
 	Wait *bool `json:"wait,omitempty" tf:"wait,omitempty"`
 }
 
-type DeployParameters struct {
+type CiliumDeploymentParameters struct {
 
 	// Datapath mode to use { tunnel | native | aws-eni | gke | azure | aks-byocni } (Default: `autodetected`).
 	// +kubebuilder:validation:Optional
@@ -111,10 +111,10 @@ type DeployParameters struct {
 	Wait *bool `json:"wait,omitempty" tf:"wait,omitempty"`
 }
 
-// DeploySpec defines the desired state of Deploy
-type DeploySpec struct {
+// CiliumDeploymentSpec defines the desired state of CiliumDeployment
+type CiliumDeploymentSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     DeployParameters `json:"forProvider"`
+	ForProvider     CiliumDeploymentParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -125,48 +125,48 @@ type DeploySpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider DeployInitParameters `json:"initProvider,omitempty"`
+	InitProvider CiliumDeploymentInitParameters `json:"initProvider,omitempty"`
 }
 
-// DeployStatus defines the observed state of Deploy.
-type DeployStatus struct {
+// CiliumDeploymentStatus defines the observed state of CiliumDeployment.
+type CiliumDeploymentStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        DeployObservation `json:"atProvider,omitempty"`
+	AtProvider        CiliumDeploymentObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// Deploy is the Schema for the Deploys API. <no value>
+// CiliumDeployment is the Schema for the CiliumDeployments API. <no value>
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,cilium}
-type Deploy struct {
+type CiliumDeployment struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              DeploySpec   `json:"spec"`
-	Status            DeployStatus `json:"status,omitempty"`
+	Spec              CiliumDeploymentSpec   `json:"spec"`
+	Status            CiliumDeploymentStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// DeployList contains a list of Deploys
-type DeployList struct {
+// CiliumDeploymentList contains a list of CiliumDeployments
+type CiliumDeploymentList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []Deploy `json:"items"`
+	Items           []CiliumDeployment `json:"items"`
 }
 
 // Repository type metadata.
 var (
-	Deploy_Kind             = "Deploy"
-	Deploy_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: Deploy_Kind}.String()
-	Deploy_KindAPIVersion   = Deploy_Kind + "." + CRDGroupVersion.String()
-	Deploy_GroupVersionKind = CRDGroupVersion.WithKind(Deploy_Kind)
+	CiliumDeployment_Kind             = "CiliumDeployment"
+	CiliumDeployment_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: CiliumDeployment_Kind}.String()
+	CiliumDeployment_KindAPIVersion   = CiliumDeployment_Kind + "." + CRDGroupVersion.String()
+	CiliumDeployment_GroupVersionKind = CRDGroupVersion.WithKind(CiliumDeployment_Kind)
 )
 
 func init() {
-	SchemeBuilder.Register(&Deploy{}, &DeployList{})
+	SchemeBuilder.Register(&CiliumDeployment{}, &CiliumDeploymentList{})
 }

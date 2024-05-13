@@ -7,62 +7,62 @@ package v1alpha1
 
 import xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 
-// GetCondition of this Deploy.
-func (mg *Deploy) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+// GetCondition of this CiliumDeployment.
+func (mg *CiliumDeployment) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
-// GetDeletionPolicy of this Deploy.
-func (mg *Deploy) GetDeletionPolicy() xpv1.DeletionPolicy {
+// GetDeletionPolicy of this CiliumDeployment.
+func (mg *CiliumDeployment) GetDeletionPolicy() xpv1.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
 }
 
-// GetManagementPolicies of this Deploy.
-func (mg *Deploy) GetManagementPolicies() xpv1.ManagementPolicies {
+// GetManagementPolicies of this CiliumDeployment.
+func (mg *CiliumDeployment) GetManagementPolicies() xpv1.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
-// GetProviderConfigReference of this Deploy.
-func (mg *Deploy) GetProviderConfigReference() *xpv1.Reference {
+// GetProviderConfigReference of this CiliumDeployment.
+func (mg *CiliumDeployment) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this Deploy.
-func (mg *Deploy) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+// GetPublishConnectionDetailsTo of this CiliumDeployment.
+func (mg *CiliumDeployment) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
-// GetWriteConnectionSecretToReference of this Deploy.
-func (mg *Deploy) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+// GetWriteConnectionSecretToReference of this CiliumDeployment.
+func (mg *CiliumDeployment) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this Deploy.
-func (mg *Deploy) SetConditions(c ...xpv1.Condition) {
+// SetConditions of this CiliumDeployment.
+func (mg *CiliumDeployment) SetConditions(c ...xpv1.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
-// SetDeletionPolicy of this Deploy.
-func (mg *Deploy) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+// SetDeletionPolicy of this CiliumDeployment.
+func (mg *CiliumDeployment) SetDeletionPolicy(r xpv1.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
 }
 
-// SetManagementPolicies of this Deploy.
-func (mg *Deploy) SetManagementPolicies(r xpv1.ManagementPolicies) {
+// SetManagementPolicies of this CiliumDeployment.
+func (mg *CiliumDeployment) SetManagementPolicies(r xpv1.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
-// SetProviderConfigReference of this Deploy.
-func (mg *Deploy) SetProviderConfigReference(r *xpv1.Reference) {
+// SetProviderConfigReference of this CiliumDeployment.
+func (mg *CiliumDeployment) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
-// SetPublishConnectionDetailsTo of this Deploy.
-func (mg *Deploy) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+// SetPublishConnectionDetailsTo of this CiliumDeployment.
+func (mg *CiliumDeployment) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
-// SetWriteConnectionSecretToReference of this Deploy.
-func (mg *Deploy) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+// SetWriteConnectionSecretToReference of this CiliumDeployment.
+func (mg *CiliumDeployment) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }

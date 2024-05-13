@@ -1,8 +1,8 @@
 apiVersion: cmesh.cilium.io/v1alpha1
-kind: Connection
+kind: CiliumClusterMeshConnection
 metadata:
   annotations:
-    meta.upbound.io/example-id: cmesh/v1alpha1/connection
+    meta.upbound.io/example-id: cmesh/v1alpha1/ciliumclustermeshconnection
   labels:
     testing.upbound.io/example-name: example
   name: example

@@ -4,18 +4,18 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.13.0
-  name: enablers.cmesh.cilium.io
+  name: ciliumconfigs.opt.cilium.io
 spec:
-  group: cmesh.cilium.io
+  group: opt.cilium.io
   names:
     categories:
     - crossplane
     - managed
     - cilium
-    kind: Enabler
-    listKind: EnablerList
-    plural: enablers
-    singular: enabler
+    kind: CiliumConfig
+    listKind: CiliumConfigList
+    plural: ciliumconfigs
+    singular: ciliumconfig
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -34,9 +34,9 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: 'Enabler is the Schema for the Enablers API. Cluster Mesh resource.
-          This is equivalent to cilium cli: cilium clustermesh enable and cilium clustermesh
-          disable: It manages the activation of Cluster Mesh on one Kubernetes cluster.'
+        description: 'CiliumConfig is the Schema for the CiliumConfigs API. Config
+          resource for Cilium. This is equivalent to cilium cli: cilium config: It
+          manages the cilium Kubernetes ConfigMap resource'
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -51,7 +51,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: EnablerSpec defines the desired state of Enabler
+            description: CiliumConfigSpec defines the desired state of CiliumConfig
             properties:
               deletionPolicy:
                 default: Delete
@@ -68,28 +68,18 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  enableExternalWorkloads:
-                    description: '(Boolean) Enable support for external workloads,
-                      such as VMs (Default: false). Enable support for external workloads,
-                      such as VMs (Default: `false`).'
-                    type: boolean
-                  enableKvStoreMesh:
-                    description: '(Boolean) Enable kvstoremesh, an extension which
-                      caches remote cluster information in the local kvstore (Cilium
-                      >=1.14 only) (Default: false). Enable kvstoremesh, an extension
-                      which caches remote cluster information in the local kvstore
-                      (Cilium >=1.14 only) (Default: `false`).'
-                    type: boolean
-                  serviceType:
-                    description: '(String) Type of Kubernetes service to expose control
-                      plane { LoadBalancer | NodePort | ClusterIP } (Default: autodetected).
-                      Type of Kubernetes service to expose control plane { LoadBalancer
-                      | NodePort | ClusterIP } (Default: `autodetected`).'
+                  key:
+                    description: (String) Key of the config Key of the config
                     type: string
-                  wait:
-                    description: '(Boolean) Wait Cluster Mesh status is ok (Default:
-                      true). Wait Cluster Mesh status is ok (Default: `true`).'
+                  restart:
+                    description: '(Boolean) Restart Cilium pods (Default: true). Restart
+                      Cilium pods (Default: `true`).'
                     type: boolean
+                  value:
+                    description: (String) Value of the key Value of the key
+                    type: string
+                required:
+                - key
                 type: object
               initProvider:
                 description: THIS IS A BETA FIELD. It will be honored unless the Management
@@ -103,28 +93,13 @@ spec:
                   for example because of an external controller is managing them,
                   like an autoscaler.
                 properties:
-                  enableExternalWorkloads:
-                    description: '(Boolean) Enable support for external workloads,
-                      such as VMs (Default: false). Enable support for external workloads,
-                      such as VMs (Default: `false`).'
+                  restart:
+                    description: '(Boolean) Restart Cilium pods (Default: true). Restart
+                      Cilium pods (Default: `true`).'
                     type: boolean
-                  enableKvStoreMesh:
-                    description: '(Boolean) Enable kvstoremesh, an extension which
-                      caches remote cluster information in the local kvstore (Cilium
-                      >=1.14 only) (Default: false). Enable kvstoremesh, an extension
-                      which caches remote cluster information in the local kvstore
-                      (Cilium >=1.14 only) (Default: `false`).'
-                    type: boolean
-                  serviceType:
-                    description: '(String) Type of Kubernetes service to expose control
-                      plane { LoadBalancer | NodePort | ClusterIP } (Default: autodetected).
-                      Type of Kubernetes service to expose control plane { LoadBalancer
-                      | NodePort | ClusterIP } (Default: `autodetected`).'
+                  value:
+                    description: (String) Value of the key Value of the key
                     type: string
-                  wait:
-                    description: '(Boolean) Wait Cluster Mesh status is ok (Default:
-                      true). Wait Cluster Mesh status is ok (Default: `true`).'
-                    type: boolean
                 type: object
               managementPolicies:
                 default:
@@ -286,36 +261,29 @@ spec:
             required:
             - forProvider
             type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.value is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.value)
+                || (has(self.initProvider) && has(self.initProvider.value))'
           status:
-            description: EnablerStatus defines the observed state of Enabler.
+            description: CiliumConfigStatus defines the observed state of CiliumConfig.
             properties:
               atProvider:
                 properties:
-                  enableExternalWorkloads:
-                    description: '(Boolean) Enable support for external workloads,
-                      such as VMs (Default: false). Enable support for external workloads,
-                      such as VMs (Default: `false`).'
-                    type: boolean
-                  enableKvStoreMesh:
-                    description: '(Boolean) Enable kvstoremesh, an extension which
-                      caches remote cluster information in the local kvstore (Cilium
-                      >=1.14 only) (Default: false). Enable kvstoremesh, an extension
-                      which caches remote cluster information in the local kvstore
-                      (Cilium >=1.14 only) (Default: `false`).'
-                    type: boolean
                   id:
-                    description: (String) Cilium ClusterMesh identifier
+                    description: (String) Cilium config identifier
                     type: string
-                  serviceType:
-                    description: '(String) Type of Kubernetes service to expose control
-                      plane { LoadBalancer | NodePort | ClusterIP } (Default: autodetected).
-                      Type of Kubernetes service to expose control plane { LoadBalancer
-                      | NodePort | ClusterIP } (Default: `autodetected`).'
+                  key:
+                    description: (String) Key of the config Key of the config
                     type: string
-                  wait:
-                    description: '(Boolean) Wait Cluster Mesh status is ok (Default:
-                      true). Wait Cluster Mesh status is ok (Default: `true`).'
+                  restart:
+                    description: '(Boolean) Restart Cilium pods (Default: true). Restart
+                      Cilium pods (Default: `true`).'
                     type: boolean
+                  value:
+                    description: (String) Value of the key Value of the key
+                    type: string
                 type: object
               conditions:
                 description: Conditions of the resource.

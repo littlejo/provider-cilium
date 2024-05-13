@@ -7,8 +7,8 @@ package v1alpha1
 
 import resource "github.com/crossplane/crossplane-runtime/pkg/resource"
 
-// GetItems of this ConnectionList.
-func (l *ConnectionList) GetItems() []resource.Managed {
+// GetItems of this CiliumClusterMeshConnectionList.
+func (l *CiliumClusterMeshConnectionList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -16,8 +16,8 @@ func (l *ConnectionList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this EnablerList.
-func (l *EnablerList) GetItems() []resource.Managed {
+// GetItems of this CiliumClusterMeshEnablerList.
+func (l *CiliumClusterMeshEnablerList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
