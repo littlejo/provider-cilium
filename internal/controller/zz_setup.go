@@ -11,6 +11,7 @@ import (
 
 	connection "github.com/littlejo/provider-cilium/internal/controller/cmesh/connection"
 	enabler "github.com/littlejo/provider-cilium/internal/controller/cmesh/enabler"
+	deploy "github.com/littlejo/provider-cilium/internal/controller/core/deploy"
 	config "github.com/littlejo/provider-cilium/internal/controller/opt/config"
 	hubble "github.com/littlejo/provider-cilium/internal/controller/opt/hubble"
 	kubeproxyfree "github.com/littlejo/provider-cilium/internal/controller/opt/kubeproxyfree"
@@ -23,6 +24,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
 		connection.Setup,
 		enabler.Setup,
+		deploy.Setup,
 		config.Setup,
 		hubble.Setup,
 		kubeproxyfree.Setup,

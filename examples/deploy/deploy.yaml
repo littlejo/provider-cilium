@@ -1,0 +1,9 @@
+apiVersion: core.cilium.io/v1alpha1
+kind: Enabler
+metadata:
+  name: hello-crossplane
+spec:
+  forProvider:
+    serviceType: NodePort
+  providerConfigRef:
+    name: default
