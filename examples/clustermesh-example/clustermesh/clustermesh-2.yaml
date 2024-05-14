@@ -1,0 +1,9 @@
+apiVersion: cmesh.cilium.io/v1alpha1
+kind: CiliumClusterMeshEnabler
+metadata:
+  name: hello-crossplane-2
+spec:
+  forProvider:
+    serviceType: NodePort
+  providerConfigRef:
+    name: default-2

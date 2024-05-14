@@ -1,0 +1,9 @@
+apiVersion: cmesh.cilium.io/v1alpha1
+kind: CiliumClusterMeshConnection
+metadata:
+  name: hello-crossplane
+spec:
+  forProvider:
+    destinationContext: "kind-kind2"
+  providerConfigRef:
+    name: default

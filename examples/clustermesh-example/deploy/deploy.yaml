@@ -1,0 +1,12 @@
+apiVersion: core.cilium.io/v1alpha1
+kind: CiliumDeployment
+metadata:
+  name: hello-crossplane
+spec:
+  forProvider:
+    version: "1.15.3"
+    set:
+      - "cluster.name=mesh1"
+      - "cluster.id=1"
+  providerConfigRef:
+    name: default
