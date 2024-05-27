@@ -27,7 +27,7 @@ EOF
 
 Notice that in this example Provider resource is referencing ControllerConfig with debug enabled.
 
-You can see the API reference [here](https://doc.crds.dev/github.com/littlejo/provider-cilium).
+You can see the API reference [here](https://marketplace.upbound.io/providers/littlejo/provider-cilium/latest).
 
 ## Developing
 
