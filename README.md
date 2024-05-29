@@ -8,9 +8,9 @@ Cilium API.
 ## Getting Started
 
 Install the provider by using the following command after changing the image tag
-to the [latest release](https://marketplace.upbound.io/providers/littlejo/provider-cilium):
+to the [latest release](https://marketplace.upbound.io/providers/cilium/provider-cilium):
 ```
-up ctp provider install littlejo/provider-cilium:v0.1.0
+up ctp provider install cilium/provider-cilium:v0.0.2
 ```
 
 Alternatively, you can use declarative installation:
@@ -21,13 +21,13 @@ kind: Provider
 metadata:
   name: provider-cilium
 spec:
-  package: littlejo/provider-cilium:v0.1.0
+  package: cilium/provider-cilium:v0.0.2
 EOF
 ```
 
 Notice that in this example Provider resource is referencing ControllerConfig with debug enabled.
 
-You can see the API reference [here](https://marketplace.upbound.io/providers/littlejo/provider-cilium/latest).
+You can see the API reference [here](https://marketplace.upbound.io/providers/cilium/provider-cilium/latest).
 
 ## Developing
 
