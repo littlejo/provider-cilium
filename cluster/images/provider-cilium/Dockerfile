@@ -1,5 +1,5 @@
 FROM alpine:3.20.0
-RUN apk --no-cache add ca-certificates bash
+RUN apk --no-cache add ca-certificates bash aws-cli
 
 ARG TARGETOS
 ARG TARGETARCH
